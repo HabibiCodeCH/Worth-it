@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Worth It?</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      width: 280px;
+      background: #FFF9F6;
+      color: #1E1208;
+      border: 1.5px solid rgba(212, 96, 30, 0.25);
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 14px 10px;
+      border-bottom: 1px solid rgba(212, 96, 30, 0.15);
+    }
+    .header-icon { font-size: 16px; line-height: 1; }
+    .header-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #D4601E;
+    }
+
+    /* ── Body ── */
+    .body { padding: 14px 16px 13px; }
+
+    /* Configured state */
+    .state-ok { display: none; }
+    .state-ok .label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #D4601E;
+      margin-bottom: 4px;
+    }
+    .state-ok .rate {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1E1208;
+      line-height: 1.15;
+    }
+    /* Toggle row */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 16px 10px;
+      border-top: 1px solid rgba(212, 96, 30, 0.12);
+    }
+    .toggle-label { font-size: 11px; font-weight: 600; color: #7A5040; }
+
+    .switch { position: relative; display: inline-block; width: 34px; height: 18px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; inset: 0;
+      border-radius: 18px;
+      background: rgba(212, 96, 30, 0.18);
+      transition: background .18s;
+    }
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 12px; height: 12px;
+      left: 3px; top: 3px;
+      border-radius: 50%;
+      background: #C0A898;
+      transition: transform .18s, background .18s;
+    }
+    input:checked + .slider { background: rgba(212, 96, 30, 0.32); }
+    input:checked + .slider::before { transform: translateX(16px); background: #D4601E; }
+
+    /* Not configured state */
+    .state-missing { display: none; }
+    .state-missing .warn-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #D4601E;
+      margin-bottom: 6px;
+    }
+    .state-missing .warn-text {
+      font-size: 13px;
+      color: #7A5040;
+      line-height: 1.45;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 10px 16px 12px;
+      border-top: 1px solid rgba(212, 96, 30, 0.12);
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 4px;
+      font: 600 12px/1 system-ui, sans-serif;
+      cursor: pointer;
+      text-align: center;
+      transition: background .12s, border-color .12s, color .12s;
+    }
+    .btn-ghost {
+      border: 1.5px solid rgba(212, 96, 30, 0.35);
+      background: none;
+      color: #D4601E;
+    }
+    .btn-ghost:hover {
+      background: rgba(212, 96, 30, 0.07);
+    }
+    .btn-fill {
+      border: 1.5px solid #D4601E;
+      background: #D4601E;
+      color: #FFF9F6;
+    }
+    .btn-fill:hover { background: #bf5419; border-color: #bf5419; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="header-icon">⏱</span>
+    <span class="header-title">Worth It?</span>
+  </div>
+
+  <div class="body">
+    <div id="state-ok" class="state-ok">
+      <div class="label" id="rate-header"></div>
+      <div class="rate" id="rate-label"></div>
+    </div>
+
+    <div id="state-missing" class="state-missing">
+      <div class="warn-label" id="not-configured-label"></div>
+      <div class="warn-text" id="not-configured-text"></div>
+    </div>
+  </div>
+
+  <div class="toggle-row">
+    <span class="toggle-label" id="toggle-label"></span>
+    <label class="switch">
+      <input type="checkbox" id="toggle" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="footer">
+    <button class="btn btn-ghost" id="options-btn" style="display:none"></button>
+    <button class="btn btn-fill" id="setup-btn" style="display:none"></button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Worth It?</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 14px;
+      color: #1c1917;
+      background: #fafaf9;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .logo-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+    .logo h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f97316;
+    }
+    .logo h1 span {
+      font-weight: 400;
+      color: #a8a29e;
+      font-size: 16px;
+    }
+
+    section {
+      background: #fff;
+      border: 1px solid #e7e5e4;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #a8a29e;
+      margin-bottom: 16px;
+    }
+
+    .modes {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .mode-btn {
+      flex: 1;
+      padding: 9px;
+      border: 1.5px solid #e7e5e4;
+      border-radius: 8px;
+      background: none;
+      font: 13px/1 system-ui, sans-serif;
+      font-weight: 600;
+      color: #78716c;
+      cursor: pointer;
+      transition: border-color .12s, color .12s, background .12s;
+    }
+    .mode-btn.active {
+      border-color: #f97316;
+      background: #fff7ed;
+      color: #c2410c;
+    }
+
+    .field { margin-bottom: 14px; }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #44403c;
+      margin-bottom: 6px;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      border: 1.5px solid #d6d3d1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 15px;
+      font-family: inherit;
+      font-weight: 600;
+      outline: none;
+      color: #1c1917;
+      background: #fafaf9;
+      transition: border-color .12s, box-shadow .12s;
+      -moz-appearance: textfield;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    input[type="number"]:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px rgba(249,115,22,.12);
+      background: #fff;
+    }
+
+    .unit {
+      font-size: 13px;
+      color: #78716c;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    select {
+      border: 1.5px solid #d6d3d1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      font-weight: 600;
+      outline: none;
+      color: #1c1917;
+      background: #fafaf9;
+      cursor: pointer;
+      transition: border-color .12s, box-shadow .12s;
+    }
+    select:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 3px rgba(249,115,22,.12);
+      background: #fff;
+    }
+
+    .derived {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: #fff7ed;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #9a3412;
+      font-weight: 600;
+      display: none;
+    }
+    .derived.visible { display: block; }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-save {
+      background: #f97316;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 26px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .btn-save:hover { background: #ea6c0b; }
+    .btn-save:active { background: #c2550a; }
+
+    .status { font-size: 13px; font-weight: 600; }
+    .status.success { color: #15803d; }
+    .status.error   { color: #dc2626; }
+
+    .privacy {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #166534;
+      line-height: 1.5;
+    }
+    .privacy-icon { font-size: 16px; flex-shrink: 0; line-height: 1.2; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="logo">
+      <span class="logo-icon">⏱</span>
+      <h1>Worth It? <span data-i18n="logoSub"></span></h1>
+    </div>
+
+    <section>
+      <h2 data-i18n="currencySection"></h2>
+      <div class="field">
+        <label for="currency" data-i18n="currencyLabel"></label>
+        <select id="currency">
+          <option value="USD">USD — $ (Dollar)</option>
+          <option value="EUR">EUR — € (Euro)</option>
+          <option value="CHF">CHF — Fr. (Franc)</option>
+          <option value="GBP">GBP — £ (Pound)</option>
+          <option value="CAD">CAD — C$ (Dollar)</option>
+          <option value="AUD">AUD — A$ (Dollar)</option>
+          <option value="SEK">SEK — kr (Krona)</option>
+          <option value="NOK">NOK — kr (Krone)</option>
+          <option value="DKK">DKK — kr (Krone)</option>
+          <option value="HUF">HUF — Ft (Forint)</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <h2 data-i18n="rateSection"></h2>
+
+      <div class="modes">
+        <button class="mode-btn active" id="mode-hourly" data-i18n="modeHourly"></button>
+        <button class="mode-btn" id="mode-annual" data-i18n="modeAnnual"></button>
+      </div>
+
+      <div id="panel-hourly">
+        <div class="field">
+          <label for="hourly-rate" data-i18n="hourlyLabel"></label>
+          <div class="input-row">
+            <input type="number" id="hourly-rate" placeholder="35" min="0.01" step="0.01">
+            <span class="unit" data-role="rate">$/h</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-annual" style="display:none">
+        <div class="field">
+          <label for="annual-salary" data-i18n="annualLabel"></label>
+          <div class="input-row">
+            <input type="number" id="annual-salary" placeholder="75000" min="1" step="100">
+            <span class="unit" data-role="annual">$/an</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="hours-per-week" data-i18n="hoursLabel"></label>
+          <div class="input-row">
+            <input type="number" id="hours-per-week" placeholder="40" min="1" max="168" step="1" value="40">
+            <span class="unit" data-role="hours">h</span>
+          </div>
+        </div>
+        <div class="derived" id="derived-rate"></div>
+      </div>
+    </section>
+
+    <div class="actions" style="margin-bottom:16px">
+      <button class="btn-save" id="save-btn" data-i18n="save"></button>
+      <span class="status" id="status"></span>
+    </div>
+
+    <div class="privacy">
+      <span class="privacy-icon">🔒</span>
+      <div id="privacy-content"></div>
+    </div>
+
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
